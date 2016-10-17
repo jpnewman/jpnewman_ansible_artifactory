@@ -1,0 +1,12 @@
+.DS_Store
+
+.vagrant
+
+roles/**
+
+files/certs/**
+!files/certs/notsecure.*
+
+inventory/**
+
+playbook.retry
