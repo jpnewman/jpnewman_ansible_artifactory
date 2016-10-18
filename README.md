@@ -1,6 +1,6 @@
 # Ansible Artifactory Stack
 
-This repo contains a vagrant file to create an Artifactory Stack with JMX support via the following Ansible roles: -
+This repo contains a vagrant file to create an Artifactory Stack with JMX support, via the following Ansible roles: -
 
 - src: geerlingguy.firewall
 - src: geerlingguy.security
@@ -38,7 +38,7 @@ ansible-galaxy install -r requirements.yml -p roles
 # Run
 
 ~~~
-cd Vagrantfiles/SingleServer
+cd ./Vagrantfiles/SingleServer
 
 vagrant up
 ~~~
