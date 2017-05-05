@@ -1,12 +1,17 @@
 ---
 - hosts: all
   become: yes
+  gather_facts: true
   tasks:
 
     - name: Build hosts file
-      lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item].ansible_eth1.ipv4.address }} {{ item }}" state=present
-      when: hostvars[item].ansible_eth1.ipv4.address is defined
-      with_items: groups['all']
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '.*{{ item }}$'
+        line: "{{ hostvars[item]['ansible_default_ipv4'].address }} {{ hostvars[item].ansible_hostname }}"
+        state: present
+      when: hostvars[item]['ansible_default_ipv4'].address is defined
+      with_items: "{{ groups['all'] }}"
 
   roles:
     - { role: jpnewman.locale-timezone, tags: ["init"] }
@@ -20,7 +25,7 @@
     - { role: geerlingguy.security, tags: ['security'] }
     - { role: geerlingguy.firewall, tags: ['firewall'] }
     - { role: geerlingguy.mysql, tags: ['mysql'],
-        when: "'{{ artifactory_database.type | lower }}' == 'mysql'" }
+        when: artifactory_database.type | lower == 'mysql' }
     - { role: jpnewman.artifactory, tags: ["artifactory"] }
     - { role: jpnewman.apache, tags: ["apache"],
-        when: "'{{ artifactory_proxy | lower }}' == 'apache'" }
+        when: artifactory_proxy | lower == 'apache' }
