@@ -1,5 +1,7 @@
 # Ansible Artifactory Stack
 
+![Artifactory Screenshot](screenshots/artifactory.png "Artifactory")
+
 This repo contains a vagrant file to create an Artifactory Stack with JMX support, via the following Ansible roles: -
 
 - src: geerlingguy.firewall
